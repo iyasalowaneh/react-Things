@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Route, Switch } from "react-router";
 
 //Styling
 import "./App.css";
@@ -6,7 +7,7 @@ import "./App.css";
 import Home from "./components/Home";
 //ProductList components
 import ProductList from "./components/ProductList";
-
+import NavProduct from "./components/NavProduct ";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyle, ThemeButton } from "./styles";
 import ProductDetail from "./components/ProductDetail";
@@ -31,24 +32,32 @@ function App() {
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
+
       <ThemeButton onClick={ToggleCurrentTheme}>
         {currentTheme === "light" ? "Dark Mode" : "Light Mode"}
       </ThemeButton>
-      <Home />
-      {crrrentProduct ? (
-        <ProductDetail
-          product={crrrentProduct}
-          setCrrrentProduct={setCrrrentProduct}
-          products={_products}
-          deleteProduct={deleteProduct}
-        />
-      ) : (
-        <ProductList
-          setCrrrentProduct={setCrrrentProduct}
-          products={_products}
-          deleteProduct={deleteProduct}
-        />
-      )}
+      <NavProduct />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        {crrrentProduct ? (
+          <ProductDetail
+            product={crrrentProduct}
+            setCrrrentProduct={setCrrrentProduct}
+            products={_products}
+            deleteProduct={deleteProduct}
+          />
+        ) : (
+          <Route path="/products">
+            <ProductList
+              setCrrrentProduct={setCrrrentProduct}
+              products={_products}
+              deleteProduct={deleteProduct}
+            />
+          </Route>
+        )}
+      </Switch>
     </ThemeProvider>
   );
 }

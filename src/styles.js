@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { Link, NavLink } from "react-router-dom";
 
 export const GlobalStyle = createGlobalStyle`
 align-items: center;
@@ -101,4 +102,24 @@ export const DetailWrapper = styled.div`
 
 export const DeleteButtonStyled = styled.button`
   background-color: green;
+`;
+
+export const NavBar = styled.div`
+  background-color: #333;
+  overflow: hidden;
+`;
+
+export const Logo = styled(Link)`
+  padding: 5px;
+  background-color: limegreen;
+  background-image: url(https://www.intel.com/content/dam/www/public/us/en/images/iot/RWD/new-york-city-skyline-sunny-aerial-rwd.jpg.rendition.intel.web.864.486.jpg);
+`;
+
+export const NavProducts = styled(NavLink)`
+  color: ${(props) => props.theme.mainColor};
+
+  &.active {
+    background-color: #04aa6d;
+    color: white;
+  }
 `;
