@@ -117,9 +117,4 @@ export const Logo = styled(Link)`
 
 export const NavProducts = styled(NavLink)`
   color: ${(props) => props.theme.mainColor};
-
-  &.active {
-    background-color: #04aa6d;
-    color: white;
-  }
 `;

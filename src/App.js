@@ -22,7 +22,6 @@ function App() {
     setProducts(filterdProduct);
   };
 
-  const [crrrentProduct, setCrrrentProduct] = useState(null);
   const [currentTheme, setCurrentTheme] = useState("light");
   const ToggleCurrentTheme = () => {
     if (currentTheme === "light") {
@@ -38,25 +37,15 @@ function App() {
       </ThemeButton>
       <NavProduct />
       <Switch>
+        <Route exact path="/products/:productSlug">
+          <ProductDetail products={_products} deleteProduct={deleteProduct} />
+        </Route>
+        <Route path="/products">
+          <ProductList products={_products} deleteProduct={deleteProduct} />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>
-        {crrrentProduct ? (
-          <ProductDetail
-            product={crrrentProduct}
-            setCrrrentProduct={setCrrrentProduct}
-            products={_products}
-            deleteProduct={deleteProduct}
-          />
-        ) : (
-          <Route path="/products">
-            <ProductList
-              setCrrrentProduct={setCrrrentProduct}
-              products={_products}
-              deleteProduct={deleteProduct}
-            />
-          </Route>
-        )}
       </Switch>
     </ThemeProvider>
   );
