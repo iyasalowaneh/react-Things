@@ -118,3 +118,5 @@ export const Logo = styled(Link)`
 export const NavProducts = styled(NavLink)`
   color: ${(props) => props.theme.mainColor};
 `;
+
+export const UpdateButtonStyled = styled(Link)``;

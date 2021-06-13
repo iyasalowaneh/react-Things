@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 // Styling
 //import { ListWrapper } from "../styles";
 //components
@@ -10,25 +11,22 @@ import SearchBar from "./SearchBar";
 // Styling
 import { List } from "../styles";
 
-const ProductList = (props) => {
-  const [query, setQuery] = useState("");
+import { useSelector } from "react-redux";
 
-  let productArray = props.products
+const ProductList = () => {
+  const [query, setQuery] = useState("");
+  const products = useSelector((state) => state.products);
+
+  let productArray = products
     .filter((product) =>
       product.name.toUpperCase().includes(query.toUpperCase())
     )
-    .map((product) => (
-      <ProductItem
-        setCrrrentProduct={props.setCrrrentProduct}
-        product={product}
-        key={product.id}
-        deleteProduct={props.deleteProduct}
-      />
-    ));
+    .map((product) => <ProductItem product={product} key={product.id} />);
   return (
     <div>
+      <Link to="/products/form">Add a Product</Link>
       <SearchBar setQuery={setQuery} />
-      <List setProduct={props.setProduct}>{productArray}</List>
+      <List>{productArray}</List>
     </div>
   );
 };
