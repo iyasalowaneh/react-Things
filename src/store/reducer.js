@@ -6,9 +6,9 @@ import slugify from "slugify";
 import { DELETE_PRODUCT } from "./actions";
 import { CREATE_PRODUCT } from "./actions";
 import { UPDATE_PRODUCT } from "./actions";
-
+import { FETCH_PRODUCTS } from "./actions";
 const initialState = {
-  products: productData,
+  products: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,8 +23,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case CREATE_PRODUCT:
-      action.payload.newProduct.id = state.products.length + 1;
-      action.payload.newProduct.slug = slugify(action.payload.newProduct.name);
       return {
         ...state,
         products: [...state.products, action.payload.newProduct],
@@ -39,7 +37,11 @@ const reducer = (state = initialState, action) => {
           product.id === updateProduct.id ? updateProduct : product
         ),
       };
-
+    case FETCH_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+      };
     default:
       return state;
   }
