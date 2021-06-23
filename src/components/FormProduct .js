@@ -35,7 +35,9 @@ const FormProduct = () => {
     else dispatch(createProduct(product));
     history.push("/products");
   };
-
+  const handleImage = (event) => {
+    SetProduct({ ...product, image: event.target.files[0] });
+  };
   return (
     <form onSubmit={handleSubmit}>
       form
@@ -86,13 +88,12 @@ const FormProduct = () => {
           Product image
         </label>
         <input
-          type="url"
+          type="file"
           class="form-control"
           id="formGroupExampleInput"
           placeholder="Enter the product image"
           name="image"
-          onChange={handleChange}
-          value={product.image}
+          onChange={handleImage}
         />
       </div>
       <button type="submit">{updatedProduct ? "update" : "Submit"}</button>

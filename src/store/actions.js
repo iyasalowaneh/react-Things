@@ -23,10 +23,11 @@ export const deleteProduct = (productId) => {
 export const createProduct = (newProduct) => {
   return async (dispatch) => {
     try {
-      const res = await axios.post(
-        "http://localhost:8000/products",
-        newProduct
-      );
+      const formData = new FormData();
+      for (const key in newProduct) {
+        formData.append(key, newProduct[key]);
+      }
+      const res = await axios.post("http://localhost:8000/products", formData);
       dispatch({
         type: CREATE_PRODUCT,
         payload: {
@@ -42,9 +43,13 @@ export const createProduct = (newProduct) => {
 export const updateProduct = (updateProduct) => {
   return async (dispatch) => {
     try {
+      const formData = new FormData();
+      for (const key in updateProduct) {
+        formData.append(key, updateProduct[key]);
+      }
       const res = await axios.put(
         `http://localhost:8000/products/${updateProduct.id}`,
-        updateProduct
+        formData
       );
       dispatch({
         type: UPDATE_PRODUCT,
