@@ -1,5 +1,5 @@
 import { DeleteButtonStyled } from "../../styles";
-import { deleteProduct } from "../../store/actions"; //action
+import { deleteProduct } from "../../store/actions/productActions"; //action
 import { useDispatch } from "react-redux";
 
 const DeleteButton = (props) => {

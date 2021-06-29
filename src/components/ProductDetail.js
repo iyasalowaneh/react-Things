@@ -4,7 +4,7 @@ import { Redirect, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DeleteButton from "./buttons/DeleteButton";
 const ProductDetail = (props) => {
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products.products);
 
   const productSlug = useParams().productSlug;
   const product = products.find((product) => product.slug === productSlug);

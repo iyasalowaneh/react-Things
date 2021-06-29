@@ -5,12 +5,15 @@ import { useParams } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
 //actions
-import { createProduct } from "../store/actions";
-import { updateProduct } from "../store/actions";
+import { createProduct } from "../store/actions/productActions";
+import { updateProduct } from "../store/actions/productActions";
 
 const FormProduct = () => {
+  const shops = useSelector((state) => state.shops.shops);
   const productSlug = useParams().productSlug;
-  const products = useSelector((state) => state.products);
+  const shopSlug = useParams().shopSlug;
+
+  const products = useSelector((state) => state.products.products);
   const updatedProduct = products.find(
     (product) => product.slug === productSlug
   );
@@ -18,6 +21,7 @@ const FormProduct = () => {
     updatedProduct
       ? updatedProduct
       : {
+          shopId: shops.find((shop) => shop.slug === shopSlug).id,
           name: "",
           price: 0,
           description: "",

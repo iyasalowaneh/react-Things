@@ -6,6 +6,7 @@ const NavProduct = () => {
       <Logo to="/">Things</Logo>
       <Link to="/">Home</Link>
       <NavProducts to="/products">Products</NavProducts>
+      <NavProducts to="/shops">Shops</NavProducts>
     </div>
   );
 };

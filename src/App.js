@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { Route, Switch } from "react-router";
-
-//Styling
+import { useSelector } from "react-redux";
+import PacmanLoader from "react-spinners/PacmanLoader"; //Styling
 import "./App.css";
-//Home components
-import Home from "./components/Home";
-import FormProduct from "./components/FormProduct ";
+
 //ProductList components
-import ProductList from "./components/ProductList";
 import NavProduct from "./components/NavProduct ";
 import { ThemeProvider } from "styled-components";
 import { theme, GlobalStyle, ThemeButton } from "./styles";
-import ProductDetail from "./components/ProductDetail";
 
+import Routes from "./components/Routes";
 function App() {
+  const products = useSelector((state) => state.products.products);
+  const loading = useSelector((state) => state.products.loading);
+  const loadingShops = useSelector((state) => state.shops.loading);
+
   const [currentTheme, setCurrentTheme] = useState("light");
   const ToggleCurrentTheme = () => {
     if (currentTheme === "light") {
@@ -28,22 +28,11 @@ function App() {
         {currentTheme === "light" ? "Dark Mode" : "Light Mode"}
       </ThemeButton>
       <NavProduct />
-      <Switch>
-        <Route path={["/products/form", "/products/:productSlug/edit"]}>
-          <FormProduct />
-        </Route>
-        <Route exact path="/products/:productSlug">
-          <ProductDetail />
-        </Route>
-
-        <Route path="/products">
-          <ProductList />
-        </Route>
-
-        <Route exact path="/">
-          <Home />
-        </Route>
-      </Switch>
+      {loading || loadingShops ? (
+        <PacmanLoader />
+      ) : (
+        <Routes products={products} />
+      )}
     </ThemeProvider>
   );
 }
